@@ -1,6 +1,8 @@
 # Flutter
 ##Лекция 1
 1. Установка Flutter
+ ![Dow](https://gitlab.com/Pomelogranate/Flutter/raw/main/images/Рисунок1.png)
+
 2. установка значения Path
 3. проверка flutter doctor
 4. настройка android studio
