@@ -2,7 +2,7 @@
 ## _**Лекция 1**_
 1. Установка Flutter
  ![Dow](https://gitlab.com/Pomelogranate/Flutter/raw/main/images/Рисунок1.png)
- ![Dow]https://github.com/Pomelogranate/Flutter/blob/main/images/%D0%A0%D0%B8%D1%81%D1%83%D0%BD%D0%BE%D0%BA1.png)
+ ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок1.png)
 
 3. установка значения Path
 4. проверка flutter doctor
