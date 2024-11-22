@@ -1,5 +1,5 @@
 # Flutter
-##Лекция 1
+## _**Лекция 1**_
 1. Установка Flutter
  ![Dow](https://gitlab.com/Pomelogranate/Flutter/raw/main/images/Рисунок1.png)
 
@@ -11,4 +11,4 @@
 8. обновление Visual Studio
 9. Проверка flutter doctor
 
-##Лекция 2
+## _**Лекция 2**_
