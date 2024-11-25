@@ -57,7 +57,7 @@ void main() {
 
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок12.png)<br>
 
-2. MaterialApp
+2. MaterialApp <br>
 Чтобы не усложнять посмотрим на изначальный пример кода, созданный автоматически и изменим цвет темы на blueGray и deepOrangeAncient для демонстрации свойства theme виджета MaterialApp <br>
 
 ```
@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
   
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок14.png)<br>
   
-3. Scaffold
+3. Scaffold <br>
 
 ```
 void main() {
@@ -175,7 +175,7 @@ void main() {
   
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок16.png)<br>
 
-4. Stateless Widget
+4. Stateless Widget <br>
 Для примера работы Stateless возьму код из видео-лекции <br>
 
 ```
@@ -200,7 +200,7 @@ class MyStatelessWidget extends StatelessWidget{
   
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок17.png)<br>
   
-5. Stateful Widget
+5. Stateful Widget <br>
    Изменю предыдущий код для демонстрации работыStateful
    <br>
 
@@ -249,8 +249,8 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
 
  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок19.png)<br>
 
-6. Работа с Asset и Image
-7. Работа с Asset и Font
+6. Работа с Asset и Image <br>
+7. Работа с Asset и Font <br>
 
 
 
