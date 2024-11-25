@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),  //deepOrangeAncient
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -129,6 +129,9 @@ class _MyHomePageState extends State<MyHomePage> {
 <br>
 
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок13.png)<br>
+  
+  Можно также изменить заголовок<br>
+  
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок14.png)<br>
   
 3. Scaffold
