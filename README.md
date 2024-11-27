@@ -201,7 +201,7 @@ class MyStatelessWidget extends StatelessWidget{
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок17.png)<br>
   
 5. Stateful Widget <br>
-   Изменю предыдущий код для демонстрации работыStateful
+   Изменю предыдущий код для демонстрации работы Stateful
    <br>
 
  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок18.png)<br>
@@ -306,6 +306,7 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
 ```
 <br>
 При копировании кода в yaml файл возникла ошибка<br>
+
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок22.png)<br>
   
 ```
