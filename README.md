@@ -250,7 +250,136 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок19.png)<br>
 
 6. Работа с Asset и Image <br>
+
+Создание новой папки <br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок20.png)<br>
+Добаление кода в файл yaml <br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок21.png)<br>
+```
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp( MaterialApp(
+    home: Scaffold(
+appBar: AppBar(
+  title: const Text('Title'),
+  actions:[IconButton(onPressed: (){}, icon: const Icon(Icons.add))],
+),
+    body: MyStatelessWidget(color: Colors.red),
+     floatingActionButton: IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
+)));
+}
+
+class MyStatelessWidget extends StatefulWidget{
+  const MyStatelessWidget({super.key, required this.color});
+  
+  final Color color;
+
+  @override
+  State<MyStatelessWidget> createState() => _MyStatelessWidgetState();
+}
+
+class _MyStatelessWidgetState extends State<MyStatelessWidget> {
+  late Color color;
+  void initState(){
+    super.initState();
+    color=widget.color;
+  }
+  
+  @override
+  Widget build(BuildContext context) {  
+    return GestureDetector( 
+      onTap: () {
+        setState(() {
+                  color = Colors.green;
+        });
+      },
+      child: Container(
+        color: color,
+        child: Image.asset('assets/96.jpg'),
+      ),
+    );
+  }
+}
+
+```
+<br>
+При копировании кода в yaml файл возникла ошибка<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок22.png)<br>
+  
+```
+[flutter_application_3] dart pub get --no-example
+Error on line 20, column 11 of pubspec.yaml: Mapping values are not allowed here. Did you miss a colon earlier?
+   ╷
+20 │     assets:
+   │           ^
+   ╵
+exit code 65
+
+```
+<br>
+после исправления ошибки<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок23.png)<br>
+  
 7. Работа с Asset и Font <br>
+  Создаём папку для шрифтов и обновляем файл <br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок24.png)<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок25.png)<br>
+
+```
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp( MaterialApp(
+    home: Scaffold(
+appBar: AppBar(
+  title: const Text('Title', style: TextStyle(fontFamily: 'Raleway', fontSize: 10),),
+  actions:[IconButton(onPressed: (){}, icon: const Icon(Icons.add))],
+),
+    body: MyStatelessWidget(color: Colors.red),
+     floatingActionButton: IconButton(onPressed: (){}, icon: const Icon(Icons.add)),
+)));
+}
+
+class MyStatelessWidget extends StatefulWidget{
+  const MyStatelessWidget({super.key, required this.color});
+  
+  final Color color;
+
+  @override
+  State<MyStatelessWidget> createState() => _MyStatelessWidgetState();
+}
+
+class _MyStatelessWidgetState extends State<MyStatelessWidget> {
+  late Color color;
+  void initState(){
+    super.initState();
+    color=widget.color;
+  }
+  
+  @override
+  Widget build(BuildContext context) {  
+    return GestureDetector( 
+      onTap: () {
+        setState(() {
+                  color = Colors.green;
+        });
+      },
+      child: Container(
+        color: color,
+        child: Image.asset('assets/96.jpg'),
+      ),
+    );
+  }
+}
+
+```
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок26.png)<br>
+  
+
 
 
 
