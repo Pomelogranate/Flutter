@@ -377,12 +377,393 @@ class _MyStatelessWidgetState extends State<MyStatelessWidget> {
 }
 
 ```
+<br>
 
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок26.png)<br>
+
+
+## _**Лекция 3**_  
+1.UniqueKey<br>
+
+```
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    home: PositionedTile(),
+  ));
+}
+
+class PositionedTile extends StatefulWidget {
+  const PositionedTile({super.key});
+
+  @override
+  State<PositionedTile> createState() => _PositionedTileState();
+}
+
+class _PositionedTileState extends State<PositionedTile> {
+  late List<Widget> tiles;
+
+  @override
+  void initState() {
+    super.initState();
+    tiles = <StatefullColorTile>[
+      StatefullColorTile(),
+      StatefullColorTile()
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: tiles,
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: swapTiles,
+          child: const Icon(
+            Icons.switch_access_shortcut,
+          )),
+    );
+  }
+
+  void swapTiles() {
+    setState(() {
+      tiles.insert(1, tiles.removeAt(0));
+    });
+  }
+}
+
+class StatefullColorTile extends StatefulWidget {
+  const StatefullColorTile({super.key});
+
+  @override
+  State<StatefullColorTile> createState() => _StatelfulColorfulTileState();
+}
+
+class _StatelfulColorfulTileState extends State<StatefullColorTile> {
+  late Color color;
+
+  @override
+  void initState() {
+    super.initState();
+    color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(width: 100, height: 100, color: color);
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок27.png)<br>
+Нужно менять контейнеры местами, они визуально(!) не меняются. Добавим ключи для решения этой проблемы<br>
+
+```
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    home: PositionedTile(),
+  ));
+}
+
+class PositionedTile extends StatefulWidget {
+  const PositionedTile({super.key});
+
+  @override
+  State<PositionedTile> createState() => _PositionedTileState();
+}
+
+class _PositionedTileState extends State<PositionedTile> {
+  late List<Widget> tiles;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   tiles = <StatefullColorTile>[
+  //     StatefullColorTile(),
+  //     StatefullColorTile()
+  //   ];
+  // }
+
+@override
+  void initState() {
+    super.initState();
+    tiles = [
+      StatefullColorTile(
+        key: UniqueKey(),
+      ),
+      StatefullColorTile(
+        key: UniqueKey(),
+      )
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: tiles,
+      ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: swapTiles,
+          child: const Icon(
+            Icons.switch_access_shortcut,
+          )),
+    );
+  }
+
+  void swapTiles() {
+    setState(() {
+      tiles.insert(1, tiles.removeAt(0));
+    });
+  }
+}
+
+class StatefullColorTile extends StatefulWidget {
+  const StatefullColorTile({super.key});
+
+  @override
+  State<StatefullColorTile> createState() => _StatelfulColorfulTileState();
+}
+
+class _StatelfulColorfulTileState extends State<StatefullColorTile> {
+  late Color color;
+
+  @override
+  void initState() {
+    super.initState();
+    color = Colors.primaries[Random().nextInt(Colors.primaries.length)];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(width: 100, height: 100, color: color);
+  }
+}
+
+```
+
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок28.png)<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок29.png)<br>
+
+## _**Лекция 4**_
+
+1.Expanded<br>
+
+```
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(Container(
+    padding: EdgeInsets.only(top:25),
+    color: Colors.white,
+    child:Row(
+        textDirection: TextDirection.ltr,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        verticalDirection: VerticalDirection.down,
+        children: <Widget>[
+          Expanded(
+              child: Container(color: Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+              flex: 3,
+          ),
+          Expanded(
+              child: Container(color: Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+              flex:1
+          ),
+          Expanded(
+              child: Container(color: Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+              flex: 2,
+          )
+        ]
+      )
+    )
+  );
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок30.png)<br>
+
+```
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(Container(
+    padding: EdgeInsets.only(top:25),
+    color: Colors.white,
+    child:Column(//Row
+        textDirection: TextDirection.ltr,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        verticalDirection: VerticalDirection.down,
+        children: <Widget>[
+          Expanded(
+              child: Container(color: Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+              flex: 3,
+          ),
+          Expanded(
+              child: Container(color: Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+              flex:1
+          ),
+          Expanded(
+              child: Container(color: Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+              flex: 2,
+          )
+        ]
+      )
+    )
+  );
+}
+
+```
+
+
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок31.png)<br>
+
+2.Stac<br>
+
+```
+import 'dart:math';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(Container(
+    color: Colors.white,
+    padding: EdgeInsets.only(top:40, bottom: 10, left: 20, right: 20),
+    child: Stack(
+      textDirection: TextDirection.ltr,
+      children: <Widget>[
+        Container(
+          width: 200,
+          height: 200,
+          color:  Colors.primaries[Random().nextInt(Colors.primaries.length)],
+        ),
+        Container(
+          width: 160,
+          height: 160,
+          color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+        ),
+        Container(
+          width: 100,
+          height: 100,
+          color:  Colors.primaries[Random().nextInt(Colors.primaries.length)],
+        ),
+      ],
+    )
+  )
+  );
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок32.png)<br>
+
+3.ListView<br>
+
+```
+const double textSize = 22;
+void main() {
+  runApp(MaterialApp(
+      home:  Scaffold(
+        body: ListView(
+          padding: const EdgeInsets.all(8),
+          children:[
+            Text("Tom", style: TextStyle(fontSize: textSize)),
+            Text("Alice", style: TextStyle(fontSize: textSize)),
+            Text("Bob", style: TextStyle(fontSize: textSize)),
+            Text("Sam", style: TextStyle(fontSize: textSize)),
+            Text("Kate", style: TextStyle(fontSize: textSize)),
+          ],
+        ),
+  )));
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок33.png)<br>
+
+```
+const double textSize = 22;
+void main() {
+  runApp(MaterialApp(
+      home:  Scaffold(
+        body: ListView(
+          padding: const EdgeInsets.all(8),
+          scrollDirection: Axis.horizontal,
+          children:[
+            Text("Tom ", style: TextStyle(fontSize: textSize)),
+            Text("Alice ", style: TextStyle(fontSize: textSize)),
+            Text("Bob ", style: TextStyle(fontSize: textSize)),
+            Text("Sam ", style: TextStyle(fontSize: textSize)),
+            Text("Kate ", style: TextStyle(fontSize: textSize)),
+          ],
+        ),
+  )));
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок34.png)<br>
   
+```
+final List<String> users = ["Tom", "Alice", "Sam", "Bob", "Kate"];
+void main() {
+  runApp(MaterialApp(
+      home:  Scaffold(
+        body: ListView.separated(
+            padding: const EdgeInsets.all(8),
+            itemCount: users.length,
+            separatorBuilder: (BuildContext context, int index) => Divider(),
+            itemBuilder: (BuildContext context, int index) {
+              return Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Text(users[index], style: TextStyle(fontSize: 22))
+              );
+            }
+        ),
+     )
+  ));
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок35.png)<br>
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
