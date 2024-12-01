@@ -660,7 +660,14 @@ void main() {
         Container(
           width: 100,
           height: 100,
-          color:  Colors.primaries[Random().nextInt(Colors.primaries.length)],
+          decoration: const BoxDecoration(
+            border:Border(top: BorderSide(width: 20.0,color: Colors.redAccent)),
+            borderRadius: BorderRadius.all( Radius.circular(16)),
+            gradient: 
+            LinearGradient(
+              colors: [ Colors.amber, Colors.greenAccent]
+            )
+          ),
         ),
       ],
     )
@@ -671,7 +678,7 @@ void main() {
 ```
 <br>
 
-  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок32.png)<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунокa32.png)<br>
 
 3.ListView<br>
 
