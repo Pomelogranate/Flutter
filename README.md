@@ -678,7 +678,7 @@ void main() {
 ```
 <br>
 
-  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунокa32.png)<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок32.png)<br>
 
 3.ListView<br>
 
