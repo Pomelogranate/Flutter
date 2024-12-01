@@ -633,7 +633,7 @@ void main() {
 
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок31.png)<br>
 
-2.Stac<br>
+2.Stack<br>
 
 ```
 import 'dart:math';
@@ -654,6 +654,7 @@ void main() {
         Container(
           width: 160,
           height: 160,
+          transform: Matrix4.skewY(0.3)..rotateZ(pi/12),
           color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
         ),
         Container(
@@ -665,6 +666,7 @@ void main() {
     )
   )
   );
+}
 
 ```
 <br>
