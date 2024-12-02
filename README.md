@@ -754,7 +754,290 @@ void main() {
 
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок35.png)<br>
 
+## _**Лекция 5**_
+1. Null-aware операторы<br>
+```
+import 'package:flutter/material.dart';
 
+void main() {
+baseExample();
+}
+
+const count=5;
+void baseExample(){
+    print('count = $count');
+
+    var countVar=5.3;
+    countVar++;
+    print('countVar = ${countVar.runtimeType}');
+    print('countVar = ${countVar}');
+
+    final List<int> list = [];
+    list.add(1);
+    list.add(1);
+    print(list);
+
+     int? num1 = 23;
+    int num2 = num1 ?? 0;
+    print(num2);        // 23
+     
+    num1 = null;
+    num2 = num1 ?? 0;
+    print(num2);        // 0
+
+        int? a;
+    a = a ?? 10;
+    print(a);       // 10
+
+      int i = 0;
+    i = getInt()!;
+    print(i);
+}
+
+int? getInt() {
+  return 1;
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок36.png)<br>
+2. Каскадный null-aware оператор<br>
+```
+void main() {
+baseExample();
+}
+
+void baseExample(){
+    Sport sport = Sport()
+        ..name = "Football"
+        ..players = 11;
+
+    print(sport.name);
+    print(sport.players);
+    print(sport.runtimeType);
+}
+class Sport{
+  String? name;
+  int? players;
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок37.png)<br>
+
+3. Модификатор late<br>
+```
+void main() {
+baseExample();
+}
+
+void baseExample(){
+    Person tom = Person("Tom");
+    tom.setAge(38);
+    tom.display();
+}
+class Person{
+    String name;
+    late int age;   // отложенная инициализация
+ 
+    Person(this.name);
+    void setAge(int age){
+ 
+        if(age > 0 && age < 111) this.age = age;
+        else this.age = 18;
+    }
+    void display() => print("Name: $name \tAge: $age");
+}
+
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок38.png)<br>
+4. Работа с коллекциями<br>
+```
+import 'dart:async';
+import 'package:flutter/material.dart';
+
+void main() {
+baseExample();
+}
+
+void baseExample(){
+List<String>? myColors = ["Blue", "Green", "Red"];
+print(myColors[1]);
+myColors = null;
+String? green = myColors?[1];
+print(green);
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок39.png)<br>
+5.Работа с параметрами класса<br>
+```
+void main() {
+baseExample();
+}
+
+void baseExample(){
+    Person tom = Person(134, "Tom");
+    print(tom.id);
+    Person bob = Person("324", "Bob");
+    print(bob.id);
+
+    Person<String> bob1 = Person<String>("324", "Bob");
+    print(bob1.id.runtimeType);
+    Person<int> sam = Person<int>(123, "Sam");
+    print(sam.id.runtimeType);
+}
+
+class Person<T>{
+    T id;   // идентификатор пользователя
+    String name; // имя пользователя
+    Person(this.id, this.name);
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок40.png)<br>
+## _**Лекция 6**_
+1. Простая передача данных между экранами, навигация<br>
+```
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() {
+  runApp(MaterialApp(
+    routes: {
+      '/': (context) => HomeScreen(title: 'Home'), 
+      '/second': (context) => SecondScreen(data: 'Hello'), 
+    },
+  ));
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key, required this.title});
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title)), 
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/second'); 
+          },
+          child: Text("Second"),
+           style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.primaries[Random().nextInt(Colors.primaries.length)],),
+                foregroundColor: MaterialStateProperty.all(Colors.black),
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  final String data;
+  SecondScreen({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Second Screen')),
+      body: Center(child: Text(data)), 
+    );
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок41.png)<br>
+   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок42.png)<br>
+2. Передача данных с onGenerateRoute<br>
+```
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() {
+ runApp(MaterialApp(
+    onGenerateRoute: (settings) {
+      var path = settings.name?.split('/') ?? [];
+
+      if (settings.name == '/') {
+        return MaterialPageRoute(builder: (context) {
+          return const HomeScreen(title: 'Home');
+        });
+      }
+
+      if ((path.length >= 3) && path[1] == 'second') {
+        return MaterialPageRoute(builder: (context) {
+          return SecondScreen(data: path[2]);
+        });
+      }
+      return MaterialPageRoute(builder: (context) {
+        return const HomeScreen(title: 'Home');
+      });
+    },
+  ));
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key, required this.title});
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title)), 
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            //Navigator.pushNamed(context, '/second'); 
+            Navigator.of(context)
+                  .pushNamed('/second/hello');
+          },
+          child: Text("Second"),
+           style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.primaries[Random().nextInt(Colors.primaries.length)],),
+                foregroundColor: MaterialStateProperty.all(Colors.black),
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  final String data;
+  SecondScreen({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Second Screen')),
+      body: Center(child: Text(data)), 
+    );
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок43.png)<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок42.png)<br>
+
+## _**Лекция 7**_
+## _**Лекция 8**_
+## _**Лекция 9**_
 
 
 
