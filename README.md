@@ -1036,6 +1036,453 @@ class SecondScreen extends StatelessWidget {
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок42.png)<br>
 
 ## _**Лекция 7**_
+1. Form, TextField и TextFormField<br>
+```
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyCustomForm());
+}
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+class MyCustomFormState extends State<MyCustomForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Custom Form'),
+        ),
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+                    }
+                  },
+                  child: const Text('Submit'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок44.png)<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок45.png)<br>
+2. Стилизация полей ввода<br>
+```
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyCustomForm());
+}
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+class MyCustomFormState extends State<MyCustomForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Custom Form'),
+        ),
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: "Введите логин",
+            fillColor: Colors.black12,
+            filled: true
+        ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+                    }
+                  },
+                  child: const Text('Submit'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок46.png)<br>
+3. Ограничения ввода в поля формы<br>
+```
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+void main() {
+  runApp(const MyCustomForm());
+}
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+class MyCustomFormState extends State<MyCustomForm> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Custom Form'),
+        ),
+        body: Form(
+          key: _formKey,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(
+            border: InputBorder.none,
+            hintText: "Введите логин",
+            fillColor: Colors.black12,
+            filled: true
+        ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
+                     inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              FilteringTextInputFormatter.deny(RegExp(r'1')),
+              LengthLimitingTextInputFormatter(4)
+            ],
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing Data')),
+                      );
+                    }
+                  },
+                  child: const Text('Submit'),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок47.png)<br>
+4. Получение текста из полей формы<br>
+```
+import 'package:flutter/material.dart';
+ 
+void main() {
+  runApp(MaterialApp(
+      home:  Scaffold(
+        body: Person(),
+       )
+  ));
+}
+ 
+class Person extends StatefulWidget {
+  Person({super.key});
+  //Person({ Key key}) : super(key: key);
+ 
+  @override
+  _PersonState createState() => _PersonState();
+}
+class _PersonState extends State<Person>{
+ 
+  String _name = "Tom";
+  final _controller = TextEditingController();
+ 
+  _changeName(){
+    setState(() =>_name = _controller.text);
+  }
+ 
+  @override
+  void initState() {
+    super.initState();
+    _controller.text = _name;
+    _controller.addListener(_changeName);
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+ 
+    return Column(children:[
+      Text("Имя пользователя: $_name", style: TextStyle(fontSize: 22)),
+      TextField(
+          style: TextStyle(fontSize: 22),
+          controller: _controller)
+    ],
+    crossAxisAlignment: CrossAxisAlignment.start);
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок48.png)<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок49.png)<br>
+5.  Выпадающий список<br>
+```
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Dropdown',
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Dropdown'),
+        ),
+        body: Center(child: DropdownItem(),),
+      ),
+    );
+  }
+}
+
+class DropdownItem extends StatefulWidget {
+  @override
+  _DropdownItemState createState() => _DropdownItemState();
+}
+
+class _DropdownItemState extends State<DropdownItem> {
+  String selectedValue = "USA";
+
+  List<DropdownMenuItem<String>> get dropdownItems{
+  List<DropdownMenuItem<String>> menuItems = [
+    DropdownMenuItem(child: Text("USA"),value: "USA"),
+    DropdownMenuItem(child: Text("Canada"),value: "Canada"),
+    DropdownMenuItem(child: Text("Brazil"),value: "Brazil"),
+    DropdownMenuItem(child: Text("England"),value: "England"),
+  ];
+  return menuItems;
+}
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      value: selectedValue,
+      onChanged: (String? newValue){
+        setState(() {
+          selectedValue = newValue!;
+        });
+      },
+      items: dropdownItems
+      );
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок50.png)<br>
+
+6. "Фокусировка" полей ввода<br>
+```
+import 'package:flutter/material.dart';
+
+void main() {
+    runApp(MaterialApp(
+      home:  Scaffold(
+        body: MyCustomForm(),
+       )
+  ));
+
+}
+
+// Define a custom Form widget.
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  State<MyCustomForm> createState() => _MyCustomFormState();
+}
+
+// Define a corresponding State class.
+// This class holds data related to the form.
+class _MyCustomFormState extends State<MyCustomForm> {
+  // Define the focus node. To manage the lifecycle, create the FocusNode in
+  // the initState method, and clean it up in the dispose method.
+  late FocusNode myFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+
+    super.dispose();
+  }
+
+  @override
+   Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: TextField(
+          focusNode: myFocusNode,
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => myFocusNode.requestFocus(),
+      ),
+    );
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок51.png)<br>
+7. SnackBar<br>
+```
+import 'package:flutter/material.dart';
+
+void main() {
+    runApp(MaterialApp(
+  title: 'SnackBar Demo',
+  home: Scaffold(
+    appBar: AppBar(
+      title: const Text('SnackBar Demo'),
+    ),
+    body: const MyCustomForm(),//SnackBarPage
+  )
+  )
+    );
+}
+
+// Define a custom Form widget.
+class MyCustomForm extends StatefulWidget {
+  const MyCustomForm({super.key});
+
+  @override
+  State<MyCustomForm> createState() => _MyCustomFormState();
+}
+
+class _MyCustomFormState extends State<MyCustomForm> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+   void _showSnackBar() {
+    final snackBar = SnackBar(
+      content: const Text('Yay! A SnackBar!'),
+    );
+
+    // Показываем SnackBar
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  @override
+   Widget build(BuildContext context) {
+    return Scaffold(
+     // body: Center(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showSnackBar(),
+        child: Text("Show"),
+      ),
+      );
+  }
+}
+
+```
+<br>
+
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок52.png)<br>
+  ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок53.png)<br>
 ## _**Лекция 8**_
 ## _**Лекция 9**_
 
