@@ -1483,26 +1483,3 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок52.png)<br>
   ![Dow](https://github.com/Pomelogranate/Flutter/blob/main/images/Рисунок53.png)<br>
-## _**Лекция 8**_
-## _**Лекция 9**_
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
